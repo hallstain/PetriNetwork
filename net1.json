@@ -1,0 +1,15 @@
+{
+	"states":[1,2,3,4,5],
+	"markers":[1,0,0,0,0],
+	"transitions": [
+	{
+		"inputStates":[1,2,3],
+		"outputStates":[4,5]
+	},
+	{
+		"inputStates":[1,2,3],
+		"outputStates":[4,5],
+		"isAutomatic": true
+	}
+	]
+}

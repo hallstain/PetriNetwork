@@ -5,6 +5,9 @@
 		var markersCount: Number;
 		var id: Number;
 		
+		public function get id():Number {
+			return id;
+		}
 		
 		public function State(id, markersCount) {
 			this.id = id;
