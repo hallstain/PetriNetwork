@@ -1,15 +1,46 @@
 {
-	"states":[1,2,3,4,5],
-	"markers":[1,0,0,0,0],
+	"states":[1,2,3,4,5,6,7,8,9,10,11,12],
+	"markers":[1,0,0,0,1,0,0,0,1,0,0,0],
 	"transitions": [
 	{
-		"inputStates":[1,2,3],
-		"outputStates":[4,5]
+		"id": 1,
+		"inputStates":[1],
+		"outputStates":[2]
 	},
 	{
-		"inputStates":[1,2,3],
-		"outputStates":[4,5],
-		"isAutomatic": true
+		"id": 2,
+		"inputStates":[2],
+		"outputStates":[3]
+	},
+	{
+		"id": 3,
+		"inputStates":[3],
+		"outputStates":[4]
+	},
+	{
+		"id": 4,
+		"inputStates":[5],
+		"outputStates":[6]
+	},
+	{
+		"id": 5,
+		"inputStates":[6],
+		"outputStates":[7,12]
+	},
+	{
+		"id": 6,
+		"inputStates":[4,12],
+		"outputStates":[8]
+	},
+	{
+		"id": 7,
+		"inputStates":[9],
+		"outputStates":[10]
+	},
+	{
+		"id": 8,
+		"inputStates":[7,10],
+		"outputStates":[11]
 	}
 	]
 }
