@@ -1,10 +1,13 @@
-﻿package  MyPackage{
+﻿package PetriNetManager{
 	
 	public class State {
 
 		var markersCount: Number;
-		var id: Number;
+		private var id: Number;
 		
+		public function get Id():Number {
+			return id;
+		}
 		
 		public function State(id, markersCount) {
 			this.id = id;
