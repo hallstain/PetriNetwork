@@ -1,4 +1,4 @@
-﻿package MyPackage {
+﻿package PetriNetManager {
 	
 	public class ActionResult {
 
