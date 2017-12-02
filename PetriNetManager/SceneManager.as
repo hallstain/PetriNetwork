@@ -46,6 +46,11 @@
 			}
 		}
 		
+		public function initFromObject(netData: Object){
+				initStates(netData);
+				initTransitions(netData);
+				dispatchEvent(new StatesUpdateEventHandler(StatesUpdateEventHandler.STATES_UPDATE_EVENT,sceneStates));
+		}
 		
 		private function initStates(netData: Object){
 			var stateIds: Array = netData.states;
