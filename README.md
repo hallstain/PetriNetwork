@@ -31,10 +31,15 @@ var sceneMgr = new SceneManager();
 var sett:Object = {
     //Номера позиций
     states: [1,2,3,4,5],
+    //Есть ли в позиции маркер
     markers: [1,0,0,0,0],
+    //Массив объектов переходов
     transitions:[{
+    		//номер перехода
 		id: 1,
+		//Входные позиции
 		inputStates:[1],
+		//Выходные позиции
 		outputStates:[2]
 	},
 	{
@@ -50,3 +55,58 @@ var sett:Object = {
 	] 
 };
 ```
+7. Инициализировать объект сети Петри 
+```javascript
+sceneMgr.initFromObject(sett);
+```
+8. Назначить управляющим объектам обработчики событий, в которых вызвать метод makeAction() для нужного перехода
+```javascript
+helpBtn.addEventListener(MouseEvent.CLICK, helpBtnInvoke);
+function helpBtnInvoke(e:MouseEvent):void {
+	sceneMgr.makeAction(1);
+}
+
+```
+
+9. Назначить обработчик события осуществления перехода и назначить действия для каждого перехода
+```javascript
+function statesChangedHandler(e:StatesUpdateEventHandler){
+
+	for each (var s:State in e.States){
+		trace(s.Id + " " + s.hasMarkers());
+	}
+	trace ("-----------------------------");
+	
+	//Если срабатывает первый переход
+	if(e.States[0].hasMarkers()){
+		//переходим на другой фон
+		bg1.gotoAndStop(1);
+		//меняем текст в навигационном окне
+		curStr = "Зайдите в меню HELP или нажмите CTRL+SHIFT+D";
+		
+	}
+	if(e.States[1].hasMarkers()){
+		bg1.gotoAndStop(2);
+		curStr = "Выберите пункт Default Keymap Reference";
+
+		
+	}
+	if(e.States[2].hasMarkers()){
+		bg1.gotoAndStop(3);
+		curStr = "Список со всеми горячими клавишами";
+	}
+	if(e.States[4].hasMarkers()){
+		bg1.gotoAndStop(4);
+		curStr = "Форма поиска команды";
+		
+		
+	}
+}
+sceneMgr.addEventListener(StatesUpdateEventHandler.STATES_UPDATE_EVENT, statesChangedHandler);	
+```
+10. Анимация готова!
+
+## Заметки:
+* В репозитории хранится тестовый ролик lab1.fla, примеры кода взяты из него
+* В качестве обработчиков событий могут быть использованы любые поддерживаемые Flash события
+* При создании фрагментов роликов, не забудте присваивать им имена реализации!
