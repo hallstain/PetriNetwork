@@ -10,28 +10,46 @@
 	import PetriNetManager.ActionResult;
 	import PetriNetManager.StatesUpdateEventHandler;
 	
+	/**
+	* Основной класс библиотеки, представляющий собой менеджер для работы с сетью Петри.
+	*/
 	public class SceneManager extends EventDispatcher  {
 		var sceneStates:Vector.<State> = new Vector.<State>();
 		var sceneTransitions:Vector.<StateTransition> = new Vector.<StateTransition>();
 		var history:Vector.<StateTransition> = new Vector.<StateTransition>();
 		var currentHistoryPos = 0;
 		
+		/**
+		* Возвращает вектор текущих состояний сети Петри
+		*/
 		public function get SceneStates(): Vector.<State> {
 			return sceneStates;
 		}
 		
+		/**
+		* Возвращает историю переходов сети Петри
+		*/
 		public function get History(): Vector.<StateTransition> {
 			return history;
 		}
 		
+		/**
+		* Возвращает текущую позицию в историю переходов
+		*/
 		public function get HistoryPosition(): int {
 			return currentHistoryPos - 1;
 		}
 		
+		/**
+		* Конструктор по умолчанию
+		*/
 		public function SceneManager() {
 		
 		}		
 		
+		/**
+		* Инициализирует сеть из JSON-файла
+		*/
 		public function initFromJSONFile(jsonFilePath: String){
 			var TextFileLoader:URLLoader = new URLLoader();
 
@@ -46,6 +64,9 @@
 			}
 		}
 		
+		/**
+		* Инициализирует сеть из объекта (формат полей объекта аналогичен JSON)
+		*/
 		public function initFromObject(netData: Object){
 				initStates(netData);
 				initTransitions(netData);
@@ -84,6 +105,9 @@
 			}
 		}
 		
+		/**
+		* Возвращает true, если переход с id, равным transitionId, является активным в данный момент
+		*/
 		public function isTransitionActive(transitionId: int){
 			for each (var t in sceneTransitions ){
 				if(t.Id === transitionId){
@@ -93,6 +117,9 @@
 			return false;
 		}
 		
+		/**
+		* Выполняет переход с id, равным transitionId
+		*/
 		public function makeAction(transitionId: int){
 			for each (var t in sceneTransitions ){
 				if(t.Id === transitionId){
@@ -107,6 +134,10 @@
 			}
 			return null;
 		}
+		
+		/**
+		* Выполняет первый активный переход с id, входящим в вектор transitionIds
+		*/
 		public function makeFirstActiveAction(transitionIds: Vector.<int>){
 			for each (var tId in transitionIds ){
 				var res: ActionResult = makeAction(tId);
@@ -117,6 +148,9 @@
 			return null;
 		}
 		
+		/**
+		* Выполняет переход назад по истории состояний сети Петри. Возвращает true, если переход был выполнен успешно
+		*/
 		public function stepBackwardInHistory(): Boolean{
 			if(currentHistoryPos == 0){
 				return false;
@@ -128,6 +162,9 @@
 			return true;
 		}
 		
+		/**
+		* Выполняет переход вперед по истории состояний сети Петри. Возвращает true, если переход был выполнен успешно
+		*/
 		public function stepForwardInHistory(): Boolean{
 			if(currentHistoryPos > history.length - 1){
 				return false;
